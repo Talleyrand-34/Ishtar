@@ -63,6 +63,9 @@ Mock up
 ## Product storage
 Mock up
 
+## Localization
+Mock up (matrix)
+
 
 ## Deployment
 - Demo directions
