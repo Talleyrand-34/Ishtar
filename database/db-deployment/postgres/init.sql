@@ -20,15 +20,6 @@ CREATE TABLE pedido (
     pedido_user INT REFERENCES usuario(user_id)
 );
 
--- Generar datos aleatorios
-INSERT INTO pedido (pedido_finalizado, pedido_user)
-SELECT
-    CASE WHEN random() > 0.5 THEN TRUE ELSE FALSE END AS pedido_finalizado,
-    FLOOR(random() * 100) + 1 AS pedido_user
-FROM
-    generate_series(1, 35) AS nums(num);
-
-
 -----------------------------------------------------------------------
 -- Crear tabla inventario
 CREATE TABLE inventario (
@@ -38,19 +29,6 @@ CREATE TABLE inventario (
     inventario_quantity INTEGER,
     inventario_localization VARCHAR(50)
 );
-
--- Generar datos aleatorios
-INSERT INTO inventario (inventario_name, inventario_ean, inventario_quantity, inventario_localization)
-SELECT
-    CONCAT('Producto', num) AS inventario_name,
-    LPAD(FLOOR(RANDOM() * 999999999999)::VARCHAR, 13, '0') AS inventario_ean,
-    FLOOR(RANDOM() * 1000)::INTEGER AS inventario_quantity,
-    CONCAT('Localizacion', FLOOR(RANDOM() * 100)) AS inventario_localization
-FROM
-    generate_series(1, 35) AS nums(num);
-
------------------------------------------------------------------------------------
-
 -- Crear tabla componentes
 CREATE TABLE componentes (
     componentes_id SERIAL PRIMARY KEY,
@@ -59,20 +37,26 @@ CREATE TABLE componentes (
     componentes_quantity INT
 );
 
--- Generar datos aleatorios
-INSERT INTO componentes (componentes_pedido_id, componentes_producto_id, componentes_quantity)
-SELECT
-    (SELECT pedido_id FROM pedido ORDER BY RANDOM() LIMIT 1) AS componentes_pedido_id,
-    (SELECT inventario_id FROM inventario ORDER BY RANDOM() LIMIT 1) AS componentes_producto_id,
-    FLOOR(RANDOM() * 100) AS componentes_quantity
-FROM
-    generate_series(1, 35) AS nums(num);
+-- Create 20 users and insert them into the usuario table
+INSERT INTO usuario (username_name) VALUES
+('user1'),
+('user2'),
+('user3'),
+('user4'),
+('user5'),
+('user6'),
+('user7'),
+('user8'),
+('user9'),
+('user10'),
+('user11'),
+('user12'),
+('user13'),
+('user14'),
+('user15'),
+('user16'),
+('user17'),
+('user18'),
+('user19'),
+('user20');
 
------------------------------------------------------------------------------------
-
--- Generar datos aleatorios
-INSERT INTO usuario (username_name)
-SELECT
-    'Usuario' || num
-FROM
-    generate_series(1, 35) AS nums(num);
