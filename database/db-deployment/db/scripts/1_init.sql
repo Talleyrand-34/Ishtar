@@ -1,6 +1,6 @@
 CREATE DATABASE Seidor
   WITH
-  OWNER = Seidor
+  OWNER = anonymous_not_seidor_user
   ENCODING = 'UTF8'
   LC_COLLATE = 'es_ES.UTF-8'
   LC_CTYPE = 'es_ES.UTF-8'
