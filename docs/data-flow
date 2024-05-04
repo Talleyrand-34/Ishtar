@@ -1,0 +1,35 @@
+sequenceDiagram
+    participant User
+    participant UserApp
+    participant LogisticWorker
+    participant LogisticWorkerApp
+    participant Database
+    participant LogisticSystem
+
+    User ->> UserApp: Request
+    UserApp ->> LogisticWorkerApp: Sends request
+    LogisticWorkerApp ->> LogisticWorker: Shows Id and position
+    LogisticWorker -->> LogisticWorkerApp: Confirms product
+    LogisticWorkerApp ->> Database: Subtract product
+    Database -->> LogisticWorkerApp: ACK
+    LogisticWorker ->> LogisticSystem: Send product
+    LogisticSystem -->> LogisticWorker: ACK
+    LogisticWorker ->> LogisticWorkerApp: Notify "Send product"
+    LogisticWorkerApp ->> UserApp : Notify "Send product"
+    UserApp -->> User: Notified
+    alt More corrections needed?
+    User ->> UserApp: Correct order
+    UserApp ->> LogisticWorkerApp: Correct order
+    LogisticWorkerApp ->> LogisticSystem: Correct order
+    LogisticSystem -->> LogisticWorkerApp: ACK
+    LogisticWorkerApp ->> Database: Adjust database
+    Database -->> LogisticWorkerApp: ACK
+    LogisticWorkerApp ->> UserApp : Notify "Corrected order"
+    end
+    LogisticSystem ->> UserApp: Package finished
+    UserApp -->> User: Notified
+
+
+
+
+    
