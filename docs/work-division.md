@@ -66,3 +66,10 @@ Mock up
 
 ## Deployment
 - Demo directions
+
+
+# Responsabilities kanban
+UI: Stand-by (9:30)
+Text-voice: Stand-by (9:30)
+Location: Next
+Database: On-progress

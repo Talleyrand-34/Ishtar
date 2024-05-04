@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  db:
+    build: .
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: seidor_db
+      POSTGRES_USER: anonymous_not_seidor_user
+      POSTGRES_PASSWORD: secure_password
+    volumes:
+      - ./data:/var/lib/postgresql/data
+
