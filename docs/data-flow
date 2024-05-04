@@ -8,6 +8,11 @@ sequenceDiagram
 
     User ->> UserApp: Request
     UserApp ->> LogisticWorkerApp: Sends request
+    alt (No stock in database?)
+    LogisticWorkerApp -->> UserApp: Notify "No stock available"
+    User -->> UserApp: Choose alternative
+    UserApp -->> LogisticWorkerApp: Send request
+    else (Stock in database)
     LogisticWorkerApp ->> LogisticWorker: Shows Id and position
     LogisticWorker -->> LogisticWorkerApp: Confirms product
     LogisticWorkerApp ->> Database: Subtract product
@@ -17,6 +22,7 @@ sequenceDiagram
     LogisticWorker ->> LogisticWorkerApp: Notify "Send product"
     LogisticWorkerApp ->> UserApp : Notify "Send product"
     UserApp -->> User: Notified
+    end
     alt More corrections needed?
     User ->> UserApp: Correct order
     UserApp ->> LogisticWorkerApp: Correct order
@@ -25,6 +31,7 @@ sequenceDiagram
     LogisticWorkerApp ->> Database: Adjust database
     Database -->> LogisticWorkerApp: ACK
     LogisticWorkerApp ->> UserApp : Notify "Corrected order"
+    UserApp -->> User: Notified
     end
     LogisticSystem ->> UserApp: Package finished
     UserApp -->> User: Notified
