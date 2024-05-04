@@ -1,19 +1,24 @@
 Table inventario {
-  id integer
+  id integer [pk, increment]
   name varchar
-  created timestamp
+  ean varchar
+  //created timestamp
   quantity integer
-
+  localization varchar
 }
 
-
-Table order{
-  id integer
+Table pedido {
+  id int [pk]
+  finalizado boolean
+  user int [ref: > user.id]
+}
+Table componentes {
+  id integer [ref: > pedido.id]
+  producto integer [ref: > inventario.id]
+  cantidad int
+}
+Table user {
+  id int [pk, increment]
+  name varchar
 }
 
-
-Table users {
-  id integer [primary key]
-  username varchar
-  created_at timestamp
-}
