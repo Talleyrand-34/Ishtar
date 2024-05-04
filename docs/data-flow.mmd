@@ -27,16 +27,22 @@ sequenceDiagram
     User ->> UserApp: Correct order
     UserApp ->> LogisticWorkerApp: Correct order
     LogisticWorkerApp ->> LogisticSystem: Correct order
-    LogisticSystem -->> LogisticWorkerApp: ACK
+    alt Can modify delivery? 
+        LogisticSystem -->> LogisticWorkerApp: ACK
+    else 
+        LogisticSystem -->> LogisticWorkerApp: Notify "Error: Cannot modify if order is out"
+        LogisticWorkerApp ->> UserApp : Notify "Error: Cannot modify if order is out"
+        UserApp -->> User: Notified Error
+    end
     LogisticWorkerApp ->> Database: Adjust database
     Database -->> LogisticWorkerApp: ACK
-    LogisticWorkerApp ->> UserApp : Notify "Corrected order"
-    UserApp -->> User: Notified
+    alt Database adjustment successful
+                LogisticWorkerApp ->> UserApp : Notify "Corrected order"
+                UserApp -->> User: Notified
+            else Database adjustment failed
+                LogisticWorkerApp -->> UserApp : Notify "Error: Database adjustment failed"
+                UserApp -->> User: Notified Error
+            end
     end
     LogisticSystem ->> UserApp: Package finished
     UserApp -->> User: Notified
-
-
-
-
-    
