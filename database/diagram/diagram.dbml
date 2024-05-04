@@ -1,24 +1,26 @@
 Table inventario {
-  id integer [pk, increment]
-  name varchar
-  ean varchar
-  //created timestamp
-  quantity integer
-  localization varchar
+  inventario_id integer [pk, increment]
+  inventario_name varchar
+  inventario_ean varchar
+  //inventario_created timestamp
+  inventario_quantity integer
+  inventario_localization varchar
 }
 
 Table pedido {
-  id int [pk]
-  finalizado boolean
-  user int [ref: > user.id]
+  pedido_id int [pk]
+  pedido_finalizado boolean
+  pedido_user int [ref: > user.id]
 }
+
 Table componentes {
-  id integer [ref: > pedido.id]
-  producto integer [ref: > inventario.id]
-  cantidad int
+  componentes_id integer [ref: > pedido.id]
+  componentes_producto integer [ref: > inventario.id]
+  componentes_quantity int
 }
+
 Table user {
-  id int [pk, increment]
-  name varchar
+  user_id int [pk, increment]
+  username_name varchar
 }
 
