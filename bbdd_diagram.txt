@@ -1,0 +1,20 @@
+Table product {
+  id integer UNIQUE [pk]
+  name varchar 
+  ean varchar
+  created timestamp
+  //quantity integer
+  //location varcahr
+}
+
+
+//Table order{
+// id integer UNIQUE [pk, increment]
+//}
+
+
+Table users {
+  id integer UNIQUE [pk]
+  username varchar
+  created_at timestamp
+}
