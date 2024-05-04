@@ -1,0 +1,19 @@
+Table inventario {
+  id integer
+  name varchar
+  created timestamp
+  quantity integer
+
+}
+
+
+Table order{
+  id integer
+}
+
+
+Table users {
+  id integer [primary key]
+  username varchar
+  created_at timestamp
+}
