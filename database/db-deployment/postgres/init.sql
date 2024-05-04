@@ -1,14 +1,19 @@
 -- Crear tabla pedido
 
--- CREATE TABLE products (
---     id INTEGER,
---     name VARCHAR(255),
---     ean VARCHAR(13),
---     Constraint "products_pkey" Primary Key ("id")
--- );
+CREATE TABLE products (
+    id INTEGER,
+    name VARCHAR(255),
+    ean VARCHAR(13),
+    Constraint "products_pkey" Primary Key ("id")
+);
 
--- COPY products FROM '/data/products.csv' DELIMITER ';' CSV HEADER;
+COPY products FROM '/data/products.csv' DELIMITER ';' CSV HEADER;
 
+-- Crear tabla usuario
+CREATE TABLE usuario (
+    user_id SERIAL PRIMARY KEY,
+    username_name VARCHAR(255)
+);
 CREATE TABLE pedido (
     pedido_id SERIAL PRIMARY KEY,
     pedido_finalizado BOOLEAN,
@@ -50,7 +55,7 @@ FROM
 CREATE TABLE componentes (
     componentes_id SERIAL PRIMARY KEY,
     componentes_pedido_id INT REFERENCES pedido(pedido_id),
-    componentes_producto_id INT REFERENCES inventario(inventario_id),
+    componentes_producto_id INT REFERENCES products(id),
     componentes_quantity INT
 );
 
@@ -64,11 +69,6 @@ FROM
     generate_series(1, 35) AS nums(num);
 
 -----------------------------------------------------------------------------------
--- Crear tabla usuario
-CREATE TABLE usuario (
-    user_id SERIAL PRIMARY KEY,
-    username_name VARCHAR(255)
-);
 
 -- Generar datos aleatorios
 INSERT INTO usuario (username_name)
