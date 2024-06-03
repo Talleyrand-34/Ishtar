@@ -10,12 +10,14 @@ CREATE TABLE usuario (
     user_id SERIAL PRIMARY KEY,
     username_name VARCHAR(255)
 );
-
+-- Order
 CREATE TABLE pedido (
     pedido_id SERIAL PRIMARY KEY,
     pedido_finalizado BOOLEAN,
     pedido_user INT REFERENCES usuario(user_id)
 );
+
+-- Storage
 
 CREATE TABLE inventario (
     inventario_id SERIAL PRIMARY KEY,
@@ -24,6 +26,8 @@ CREATE TABLE inventario (
     inventario_quantity INTEGER,
     inventario_localization VARCHAR(50)
 );
+
+-- Components
 
 CREATE TABLE componentes (
     componentes_id SERIAL PRIMARY KEY,
